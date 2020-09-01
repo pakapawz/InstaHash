@@ -18,16 +18,26 @@ def copy_to_clipboard():
     messagebox.showinfo('Copy to Clipboard', 'Hashtags successfully copied to clipboard')
 
 
-def show_final_recommendation():
+def show_cannot_retrieve_error():
+    messagebox.showinfo('Unexpected Error', 'Unexpected error occurred. Please try again later')
 
+
+def show_final_recommendation():
     frm_hashtag = LabelFrame(root, text='Recommendation for [' + ent_topic.get() + ']')
     frm_hashtag.pack(padx=12, pady=12, fill=BOTH)
 
     counter = 1
     hashtags_string = ''
+
     file_hashtag = open('file_hashtags_final_sorted', 'r')
+
     for hashtag in file_hashtag:
         hashtag = hashtag.rstrip('\n')
+
+        if hashtag == '#cannot_retrieve_hashtag':
+            show_cannot_retrieve_error()
+            return
+
         hashtags_string += hashtag
 
         if counter % 5 == 0:
@@ -63,6 +73,7 @@ def button_clicked():
 # GUI PART
 root = Tk()
 root.title('InstaHash')
+root.resizable(width=False, height=False)
 
 window_width = 512
 window_height = 312
