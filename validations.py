@@ -1,5 +1,6 @@
 import urllib.request
 
+
 def is_user_online():
     host = 'http://google.com'
     try:

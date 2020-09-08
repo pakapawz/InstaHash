@@ -6,6 +6,9 @@ from hashtag_processing import get_final_sorted_hashtag
 from validations import is_user_online, is_valid_topic
 
 
+clipboard = ''
+
+
 def show_error_message():
     messagebox.showinfo('Invalid Input', 'Input is either blank or contains non-alpha-numeric character')
 
@@ -15,6 +18,12 @@ def show_offline_message():
 
 
 def copy_to_clipboard():
+    copyToClipboard = Tk()
+    copyToClipboard.withdraw()
+    copyToClipboard.clipboard_clear()
+    copyToClipboard.clipboard_append(clipboard)
+    copyToClipboard.update()
+    copyToClipboard.destroy()
     messagebox.showinfo('Copy to Clipboard', 'Hashtags successfully copied to clipboard')
 
 
@@ -53,6 +62,8 @@ def show_final_recommendation():
     lbl_test2.pack(pady=4)
 
     btn_copy = Button(root, text='Copy to Clipboard', command=copy_to_clipboard)
+    global clipboard
+    clipboard= hashtags_string
     btn_copy.pack(pady=4)
 
 
