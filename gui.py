@@ -1,10 +1,10 @@
 from tkinter import *
 from tkinter import messagebox
+from PIL import Image, ImageTk
 
 from api_request import get_top_post_hashtags
 from hashtag_processing import get_final_sorted_hashtag
 from validations import is_user_online, is_valid_topic
-
 
 clipboard = ''
 
@@ -32,8 +32,8 @@ def show_cannot_retrieve_error():
 
 
 def show_final_recommendation():
-    frm_hashtag = LabelFrame(root, text='Recommendation for [' + ent_topic.get() + ']')
-    frm_hashtag.pack(padx=12, pady=12, fill=BOTH)
+    frm_hashtag = LabelFrame(root, text='Recommendation for [' + ent_topic.get() + ']', fg='#1f1f1f')
+    frm_hashtag.pack(padx=12, pady=(24, 12), fill=BOTH)
 
     counter = 1
     hashtags_string = ''
@@ -58,10 +58,11 @@ def show_final_recommendation():
         if counter > 30:
             break
 
-    lbl_test2 = Label(frm_hashtag, text=hashtags_string)
+    lbl_test2 = Label(frm_hashtag, text=hashtags_string, fg='#1f1f1f')
     lbl_test2.pack(pady=4)
 
-    btn_copy = Button(root, text='Copy to Clipboard', command=copy_to_clipboard)
+    btn_copy = Button(root, text='Copy to Clipboard', command=copy_to_clipboard,
+                      font=('Calibri', 10, 'bold'), bg='#38857f', fg='white', padx=12, borderwidth=0)
     global clipboard
     clipboard= hashtags_string
     btn_copy.pack(pady=4)
@@ -78,16 +79,14 @@ def button_clicked():
     else:
         show_error_message()
 
-    ent_topic.delete(0, END)  # clears the entry field
-
 
 # GUI PART
 root = Tk()
 root.title('InstaHash')
 root.resizable(width=False, height=False)
 
-window_width = 512
-window_height = 312
+window_width = 500
+window_height = 450
 
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
@@ -97,13 +96,27 @@ y_coor = (screen_height / 2) - (window_height / 2)
 
 root.geometry('%dx%d+%d+%d' % (window_width, window_height, x_coor, y_coor))  # [width]x[height]+[x_coor]+[y_coor]
 
-ent_topic = Entry(root)
+root.iconbitmap('z.ico')
+img = Image.open('z_black.jpg')
+img = img.resize((window_width, window_height))
+bg_img = ImageTk.PhotoImage(img)
+Label(root, image=bg_img).place(relwidth=1, relheight=1)
 
-lbl_title = Label(root, text='Automated Instagram Hashtag Finder')
-lbl_insert = Label(root, text='Insert your topic here')
-btn_search = Button(root, text='Search!', command=button_clicked)
+lbl_title = Label(root, text='Instagram Hashtag\nFinder',
+                  font=('Futura', 20, 'bold'), fg='#1f1f1f', bg='#f2f2f2')
+lbl_insert = Label(root, text='Insert your topic below',
+                   font=('Calibri', 14), fg='#3f3f3f', bg='#f2f2f2')
+lbl_warning = Label(root, text='(no whitespace and symbol allowed)',
+                    font=('Calibri', 10, 'italic'), fg='#5f5f5f', bg='#f2f2f2')
+ent_topic = Entry(root,width=20, font=('Calibri', 12))
+btn_search = Button(
+    root, text='Search', command=button_clicked,
+    font=('Calibri', 10, 'bold'), bg='#38857f', fg='white',
+    padx=20, borderwidth=0)
 
-lbl_title.pack(pady=4)
+lbl_title.pack(pady=(32, 16))
+lbl_insert.pack()
+lbl_warning.pack()
 ent_topic.pack(pady=4)
 btn_search.pack(pady=4)
 
