@@ -32,7 +32,7 @@ def show_cannot_retrieve_error():
 
 
 def show_final_recommendation():
-    frm_hashtag = LabelFrame(root, text='Recommendation for [' + ent_topic.get() + ']', fg='#1f1f1f')
+    frm_hashtag = LabelFrame(root, text='Recommendation for [' + ent_topic.get() + ']', fg='#1f1f1f', font=('Roboto'))
     frm_hashtag.pack(padx=12, pady=(24, 12), fill=BOTH)
 
     counter = 1
@@ -62,7 +62,7 @@ def show_final_recommendation():
     lbl_test2.pack(pady=4)
 
     btn_copy = Button(root, text='Copy to Clipboard', command=copy_to_clipboard,
-                      font=('Calibri', 10, 'bold'), bg='#38857f', fg='white', padx=12, borderwidth=0)
+                      font=('Roboto', 10, 'bold'), bg='#38857f', fg='white', padx=12, borderwidth=0)
     global clipboard
     clipboard= hashtags_string
     btn_copy.pack(pady=4)
@@ -103,15 +103,15 @@ bg_img = ImageTk.PhotoImage(img)
 Label(root, image=bg_img).place(relwidth=1, relheight=1)
 
 lbl_title = Label(root, text='Instagram Hashtag\nFinder',
-                  font=('Futura', 20, 'bold'), fg='#1f1f1f', bg='#f2f2f2')
+                  font=('Roboto', 20, 'bold'), fg='#1f1f1f', bg='#f2f2f2')
 lbl_insert = Label(root, text='Insert your topic below',
-                   font=('Calibri', 14), fg='#3f3f3f', bg='#f2f2f2')
+                   font=('Roboto', 14), fg='#3f3f3f', bg='#f2f2f2')
 lbl_warning = Label(root, text='(no whitespace and symbol allowed)',
-                    font=('Calibri', 10, 'italic'), fg='#5f5f5f', bg='#f2f2f2')
-ent_topic = Entry(root,width=20, font=('Calibri', 12))
+                    font=('Roboto', 10, 'italic'), fg='#5f5f5f', bg='#f2f2f2')
+ent_topic = Entry(root,width=20, font=('Roboto', 12))
 btn_search = Button(
     root, text='Search', command=button_clicked,
-    font=('Calibri', 10, 'bold'), bg='#38857f', fg='white',
+    font=('Roboto', 10, 'bold'), bg='#38857f', fg='white',
     padx=20, borderwidth=0)
 
 lbl_title.pack(pady=(32, 16))
